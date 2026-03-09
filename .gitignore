@@ -1,0 +1,201 @@
+# ============================================
+# Python 项目 .gitignore
+# 适用于 Astro-AI-Demo 天文AI智能分析平台
+# ============================================
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# ----- 虚拟环境 -----
+venv/
+.venv/
+ENV/
+env/
+
+# ----- IDE / 编辑器 -----
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# ----- Jupyter Notebook -----
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# ----- 操作系统 -----
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ----- 大型数据文件 -----
+# 天文数据文件 (FITS格式)
+*.fits
+*.fit
+*.fts
+
+# 模型文件 (太大，不放入Git)
+*.joblib
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+
+# 大型数据目录
+lib/
+models/*
+!models/.gitkeep
+data/*
+!data/.gitkeep
+!data/README.md
+SDSS_Spectra_Downloads/
+downloads/
+large_files/
+
+# 消光地图数据
+data/csfd_ebv.fits
+data/sfd_ebv.fits
+data/lss_intensity.fits
+data/lss_error.fits
+data/mask.fits
+
+# 污染检测模型
+contamination_*.joblib
+contamination_*.npy
+
+# ----- 输出文件 -----
+output/*
+!output/.gitkeep
+!output/README.md
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.csv
+*.json
+!config.json
+!package.json
+results/
+figures/
+plots/
+
+# ----- 日志文件 -----
+*.log
+logs/
+log/
+*.log.*
+
+# ----- 缓存文件 -----
+cache/
+*.cache
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+.ruff_cache/
+
+# ----- 测试相关 -----
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# ----- 文档构建 -----
+docs/_build/
+docs/build/
+site/
+
+# ----- 备份文件 -----
+*.bak
+*.tmp
+*.temp
+*.old
+*.orig
+*.rej
+
+# ----- 敏感信息 -----
+.env
+.env.local
+.env.*.local
+secrets.json
+credentials.json
+*.key
+*.pem
+
+# ----- 特定于本项目 -----
+# 大型 VSP Notebook
+VSP/VSP_Integrate.ipynb
+
+# 归档文件
+archive/
+Useless/
+
+# 下载的数据目录
+downloads/catalogs/
+downloads/images/
+downloads/lightcurves/
+downloads/spectra/
