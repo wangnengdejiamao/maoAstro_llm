@@ -1,0 +1,62 @@
+================================================================================
+PDF文件提取完成报告
+================================================================================
+提取时间: 2026-03-11
+源目录: /mnt/c/Users/Administrator/Desktop/storage
+目标目录: /mnt/c/Users/Administrator/Desktop/astro-ai-demo/papers_from_storage/
+
+【提取统计】
+✓ 有效PDF文件数: 259个
+✓ 总大小: 743 MB
+✓ 排除隐藏文件: ~43个 (._开头的macOS文件)
+
+【文件主题分布】
+根据文件名分析，主要涵盖以下主题：
+
+1. 激变变星 (Cataclysmic Variables)
+   - 吸积物理
+   - 磁激变变星 (Polars, Intermediate Polars)
+   - 爆发机制
+   - 演化
+
+2. 白矮星 (White Dwarfs)
+   - 脉动白矮星
+   - 磁性白矮星
+   - 双白矮星系统
+
+3. 双星系统 (Binary Systems)
+   - 密近双星演化
+   - 质量转移
+   - 并合
+
+4. 引力波天文学
+   - LISA任务
+   - 银河系双星
+   - 引力波辐射
+
+5. 观测技术
+   - 光变曲线分析
+   - 光谱观测
+   - 空间望远镜 (Gaia, GALEX, TESS等)
+
+【示例文件】
+- Norton 等 - 2004 - REVIEW The Spin Periods of Magnetic Cataclysmic V.pdf
+- Amaro-Seoane 等 - 2017 - Laser Interferometer Space Antenna.pdf
+- Knigge 等 - 2011 - The Evolution of Cataclysmic Variables as Revealed.pdf
+- Belloni 和 Schreiber - 2023 - Reversing the verdict cataclysmic variables could.pdf
+- Córsico 等 - 2019 - Pulsating white dwarfs new insights.pdf
+
+【下一步建议】
+1. 使用pdf_processor.py处理这些PDF提取文本
+2. 生成更多的问答对用于模型训练
+3. 构建天文知识库
+4. 提取关键图表和数据
+
+【注意事项】
+- 部分PDF可能有访问限制或水印
+- 建议先处理几个样本验证质量
+- 大批量处理可能需要较长时间
+
+================================================================================
+提取完成！
+================================================================================

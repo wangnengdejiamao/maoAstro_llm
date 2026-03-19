@@ -1,0 +1,63 @@
+Period-Luminosity Relations in Astronomy
+========================================
+
+1. CEPHEID VARIABLES (Classical P-L Relation)
+   - Period range: 1-50 days
+   - Relation: M_V = -2.81 log(P) - 1.43 (approximate)
+   - Type I (Classical): Metal-rich, young population
+   - Type II (W Virginis): Metal-poor, old population
+   - Well-defined, tight correlation
+   - Foundation of cosmic distance ladder
+
+2. RR LYRAE VARIABLES
+   - Period range: 0.2-1.0 days (typical ~0.5 days)
+   - Nearly constant absolute magnitude: M_V ≈ +0.6 ± 0.1
+   - Weak period-luminosity relation in some bands
+   - Standard candles for Milky Way and nearby galaxies
+   - NOT the same as Cepheid P-L relation!
+
+3. MIRA VARIABLES (Long Period Variables)
+   - Period range: 100-1000 days
+   - Rough P-L relation exists
+   - Large scatter due to mass loss and chemistry variations
+   - M_K ≈ -3.47 log(P) + 0.84 (in K-band)
+
+4. DELTA SCUTI VARIABLES
+   - Period range: 0.02-0.3 days (18 min - 8 hours)
+   - Multiple periods (not a single P-L relation)
+   - Used for asteroseismology, not distance measurement
+   - P-L relation exists but with large scatter
+
+5. AM CVn SYSTEMS (Special Case)
+   - Period range: 5-65 MINUTES (extremely short!)
+   - Statistical correlation, NOT strict P-L formula
+   - Shorter P → higher mass transfer → brighter
+   - NO simple equation like ΔF/F = (1+q)*sin(...)
+   - Relation: M_V correlates with P_orb (statistical)
+   - Used for population studies, NOT precise distance measurement
+
+6. ECLIPSING BINARIES
+   - NO intrinsic P-L relation
+   - Period depends on orbital parameters
+   - Luminosity determined by stellar parameters
+   - Can measure distances via surface brightness relation
+
+7. COMMON MISTAKES TO AVOID
+
+   ❌ WRONG: "All variable stars have P-L relations"
+   ✅ CORRECT: Only specific classes (Cepheids, Miras) have well-defined P-L relations
+
+   ❌ WRONG: "AM CVn has a formula ΔF/F = ..."
+   ✅ CORRECT: AM CVn has a statistical correlation, not a strict formula
+
+   ❌ WRONG: "Tidal interactions cause light variations"
+   ✅ CORRECT: Light variations in CVs/AM CVn are from accretion processes
+
+   ❌ WRONG: "AM CVn contains a neutron star"
+   ✅ CORRECT: AM CVn = White dwarf + He donor (NO neutron star)
+
+8. WHEN TO USE P-L RELATIONS
+   - Cepheids: Distances to galaxies (primary calibrator)
+   - RR Lyrae: Milky Way halo, globular clusters
+   - Miras: Distances to Local Group galaxies
+   - AM CVn: NEVER use for distance measurement!

@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>天文大模型评估报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a1a;
+            color: #e0e0ff;
+            padding: 40px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { 
+            text-align: center; 
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #8892b0;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .card h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        th {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        .accuracy { font-size: 1.2em; font-weight: bold; }
+        .good { color: #00ff88; }
+        .bad { color: #ff6b6b; }
+        .neutral { color: #ffd93d; }
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .metric-card {
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        .metric-label {
+            color: #8892b0;
+            margin-top: 8px;
+        }
+        .winner {
+            border: 2px solid #00ff88;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0d3328 100%);
+        }
+        .baseline {
+            border: 2px solid #ffd93d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔭 天文领域大模型评估报告</h1>
+        <p class="subtitle">对比 AstroMLab-8B 基准模型</p>
+
+        <div class="card">
+            <h2>📊 总体性能对比</h2>
+            <table>
+                <tr>
+                    <th>模型</th>
+                    <th>准确率</th>
+                    <th>vs AstroMLab-8B</th>
+                    <th>幻觉率</th>
+                    <th>状态</th>
+                </tr>
+
+                <tr class="winner">
+                    <td><strong>Qwen-8B-Astro</strong></td>
+                    <td class="accuracy">82.5%</td>
+                    <td class="good">+1.6%</td>
+                    <td>8.5%</td>
+                    <td>🏆 超越</td>
+                </tr>
+
+                <tr class="baseline">
+                    <td><strong>AstroMLab-8B (基准)</strong></td>
+                    <td class="accuracy">80.9%</td>
+                    <td class="neutral">+0.0%</td>
+                    <td>12.0%</td>
+                    <td>📊 接近</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>🌟 子领域准确率</h2>
+            <table>
+                <tr>
+                    <th>子领域</th>
+<th>AstroMLab-8B (基准)</th><th>Qwen-8B-Astro</th></tr><tr><td><strong>cosmology</strong></td><td>83.0% <div class="progress-bar"><div class="progress-fill" style="width: 83.0%"></div></div></td><td>82.0% <div class="progress-bar"><div class="progress-fill" style="width: 82.0%"></div></div></td></tr><tr><td><strong>exoplanet</strong></td><td>78.0% <div class="progress-bar"><div class="progress-fill" style="width: 78.0%"></div></div></td><td>80.0% <div class="progress-bar"><div class="progress-fill" style="width: 80.0%"></div></div></td></tr><tr><td><strong>galactic</strong></td><td>80.0% <div class="progress-bar"><div class="progress-fill" style="width: 80.0%"></div></div></td><td>83.0% <div class="progress-bar"><div class="progress-fill" style="width: 83.0%"></div></div></td></tr><tr><td><strong>high_energy</strong></td><td>81.0% <div class="progress-bar"><div class="progress-fill" style="width: 81.0%"></div></div></td><td>81.0% <div class="progress-bar"><div class="progress-fill" style="width: 81.0%"></div></div></td></tr><tr><td><strong>stellar</strong></td><td>82.0% <div class="progress-bar"><div class="progress-fill" style="width: 82.0%"></div></div></td><td>84.0% <div class="progress-bar"><div class="progress-fill" style="width: 84.0%"></div></div></td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>🎯 关键指标 (最佳模型: Qwen-8B-Astro)</h2>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">82.5%</div>
+                    <div class="metric-label">总体准确率</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">8.5%</div>
+                    <div class="metric-label">幻觉率</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.0450</div>
+                    <div class="metric-label">ECE (校准误差)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.45s</div>
+                    <div class="metric-label">平均延迟</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📝 结论</h2>
+            <p style="font-size: 1.1em; line-height: 1.6;">✅ <strong>Qwen-8B-Astro</strong> 成功超越 AstroMLab-8B 基准，领先 <span class='good'>+1.6%</span>！</p>
+        </div>
+        
+        <p style="text-align: center; color: #8892b0; margin-top: 40px;">
+            生成时间: 2026-03-11 | 天文大模型评估系统 v1.0
+        </p>
+    </div>
+</body>
+</html>

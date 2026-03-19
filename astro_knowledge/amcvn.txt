@@ -1,0 +1,57 @@
+AM CVn Systems - Key Facts
+==========================
+
+1. DEFINITION AND COMPOSITION
+   - Ultra-compact binary systems with extremely short orbital periods (P_orb = 5-65 minutes)
+   - Primary (accretor): White dwarf (WD)
+   - Donor: Degenerate or semi-degenerate helium star (NOT a neutron star!)
+   - Mass transfer driven by gravitational wave radiation (for short P systems)
+     or thermal timescale (for longer P systems)
+   - NO tidal interaction between white dwarf and neutron star - this is a common misconception
+
+2. PERIOD-LUMINOSITY RELATION
+   - Shorter orbital period → higher mass transfer rate (Mdot)
+   - Mdot ∝ P^(-n), where n ≈ 10/3 for gravitational wave-driven systems
+   - Absolute magnitude correlates with orbital period:
+     * Brighter systems tend to have shorter periods (P < 20 min)
+     * At P ~ 20-40 min: systems can be in "outburst" or "quiescence" states
+   - The relation is statistical, not a strict formula like Cepheids
+   - NO simple equation like ΔF/F = (1+q)*sin(...) exists for AM CVn systems
+
+3. PHYSICAL PROCESSES (NOT TIDAL INTERACTION)
+   - Mass transfer through Roche lobe overflow
+   - Accretion disk formation (for P > ~10 min)
+   - Direct impact accretion (for P < ~10 min, no accretion disk)
+   - Disk instability model (DIM) explains outbursts
+   - Gravitational wave radiation drives orbital evolution at short periods
+
+4. VARIABILITY TYPES
+   - Superhumps: Period slightly longer than P_orb (due to disk precession)
+   - Outbursts: Magnitude changes of 3-5 mag (explained by disk instability, NOT tides)
+   - Direct-impact accretion: Occurs at P < ~10 min
+   - Orbital modulation: From aspect changes and hot spot
+
+5. KEY EXAMPLES
+   - HM Cnc (RX J0806): P = 5.4 min (shortest known AM CVn)
+   - ES Cet: P = 10.4 min
+   - AM CVn itself: P = 17.1 min (prototype)
+   - HP Lib: P = 18.6 min
+   - CR Boo: P = 24.5 min
+
+6. GRAVITATIONAL WAVE SOURCES
+   - Prime targets for LISA (Laser Interferometer Space Antenna) space mission
+   - "Verification binaries" with known orbital parameters
+   - Strongest gravitational wave signals among known binaries
+   - Important for testing general relativity
+
+7. OBSERVATIONAL CHARACTERISTICS
+   - Optical spectra: Helium lines dominant (no hydrogen)
+   - Colors: Very blue (UV-bright)
+   - Variability: Complex, multi-periodic
+   - X-ray emission: From boundary layer or direct impact region
+
+8. IMPORTANT DISTINCTIONS
+   - NOT related to neutron stars
+   - Light variations are NOT caused by tidal effects
+   - NO standard period-luminosity formula like Cepheids
+   - The period range (5-65 min) is much shorter than typical binary systems

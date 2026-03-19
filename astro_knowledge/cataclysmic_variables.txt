@@ -1,0 +1,76 @@
+Cataclysmic Variables (CVs) - Comprehensive Guide
+=================================================
+
+1. SYSTEM COMPOSITION
+   - Primary: White dwarf (mass 0.6-1.2 M_sun)
+   - Secondary: Low-mass star (usually M dwarf, mass < 1 M_sun)
+   - Orbital period: Typically < 1 day (1-12 hours range)
+   - Separation: Very close (solar radius scale)
+
+2. MASS TRANSFER MECHANISMS
+   - Roche lobe overflow: Secondary star fills its Roche lobe
+   - Angular momentum loss:
+     * Magnetic braking (for periods > 2-3 hours)
+     * Gravitational wave radiation (for periods < 2 hours)
+   - Mass transfer rate: 10^-11 to 10^-8 M_sun/year
+
+3. CV TYPES AND CLASSIFICATION
+
+   3.1 Non-Magnetic CVs (B < 1 MG)
+   - Dwarf Novae (DN):
+     * U Gem type: Regular outbursts, 2-6 mag amplitude
+     * SU UMa type: Superoutbursts + normal outbursts, superhumps
+     * Z Cam type: Standstill periods between outbursts
+   - Nova-like Variables (NL):
+     * UX UMa type: High mass transfer, always bright
+     * VY Scl type: Occasional low states
+   - Classical Novae: Thermonuclear runaways (10^4-10^5 year intervals)
+   - Recurrent Novae: Multiple nova eruptions observed
+
+   3.2 Magnetic CVs
+   - Polars (AM Her type, B > 10 MG):
+     * Synchronous rotation (P_spin = P_orb)
+     * No accretion disk
+     * Strong polarization (up to 30%)
+     * X-ray emission from accretion column
+   - Intermediate Polars (DQ Her type, 1 < B < 10 MG):
+     * Non-synchronous rotation
+     * Partial accretion disk or disk truncated by magnetosphere
+     * Spin period shorter than orbital period
+
+4. ACCRETION DISK PHYSICS
+   - Standard disk: Gas orbits white dwarf, viscous heating
+   - Boundary layer: Where disk meets WD surface, hot (10^7-10^8 K)
+   - Hot spot: Where stream hits disk
+   - Disk instability model (DIM): Explains dwarf nova outbursts
+
+5. OBSERVATIONAL PROPERTIES
+
+   5.1 Photometric
+   - Outbursts: 2-6 mag for dwarf novae, 6-19 mag for novae
+   - Quiescence: Faint, red colors
+   - Flickering: Short timescale variability (minutes)
+   - Orbital modulation: From hot spot or ellipsoidal effect
+
+   5.2 Spectroscopic
+   - Emission lines: H I, He I, He II (strongest in quiescence)
+   - Double-peaked profiles: From rotating accretion disk
+   - Absorption lines: From secondary star (often hard to detect)
+   - Bowen blend: N III/C III at ~4640 Å (indicator of high excitation)
+
+6. PERIOD GAP AND EVOLUTION
+   - Period gap: 2-3 hour range with few systems
+   - Below gap: GW-driven evolution
+   - Above gap: Magnetic braking drives evolution
+   - Minimum period: ~70 minutes (period bounce)
+
+7. DISTINGUISHING FEATURES FROM OTHER SYSTEMS
+   - AM CVn: No hydrogen, He-rich, P < 65 min
+   - Symbiotic stars: Giant donor, longer P
+   - X-ray binaries: Neutron star or black hole primary
+   - Algol systems: Non-degenerate primary
+
+8. IMPORTANT CAUTIONS
+   - Do NOT confuse with AM CVn systems (which are He-transferring)
+   - Light variations are from accretion processes, NOT tidal interactions
+   - Period-luminosity relations are different from pulsating variables

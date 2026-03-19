@@ -1,0 +1,164 @@
+# Qwen-8B 天文领域微调配置
+# 使用 LLaMA-Factory 框架
+
+# ==================== 模型配置 ====================
+model_name_or_path: Qwen/Qwen2.5-7B-Instruct  # 或 Qwen/Qwen3-8B
+
+template: qwen  # 使用 Qwen 对话模板
+
+# ==================== 数据配置 ====================
+dataset_dir: ../data
+dataset: astro_training  # 将在 data/dataset_info.json 中定义
+
+cutoff_len: 8192  # 最大序列长度
+max_samples: 10000000  # 使用所有样本
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+# ==================== 输出配置 ====================
+output_dir: ../models/qwen8b-astro-v1
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+
+# ==================== 训练阶段 1: 持续预训练 (CPT) ====================
+# 使用天文文献继续预训练，增强领域知识
+
+### CPT 配置 ###
+# stage: pt  # 在运行命令中指定 --stage pt
+# 数据: arXiv 天文论文摘要、引言、结论
+
+# LoRA 配置 (CPT)
+lora_target: all  # 训练所有线性层
+lora_rank: 64
+lora_alpha: 128
+lora_dropout: 0.05
+
+# 训练参数 (CPT)
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4
+learning_rate: 2.0e-5  # CPT 使用较小学习率
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+# 优化器
+optim: adamw_torch
+weight_decay: 0.1
+
+# ==================== 训练阶段 2: 监督微调 (SFT) ====================
+# 使用高质量天文问答对进行指令微调
+
+### SFT 配置 ###
+# stage: sft  # 在运行命令中指定 --stage sft
+# 数据: 天文概念问答、反幻觉数据、MCQ 解释
+
+# LoRA 配置 (SFT) - 更大秩以学习指令
+# lora_rank: 128
+# lora_alpha: 256
+
+# 训练参数 (SFT)
+# learning_rate: 5.0e-5  # SFT 使用较大学习率
+# num_train_epochs: 3.0
+
+# ==================== RLHF (可选阶段 3) ====================
+# 使用 DPO/ORPO 进一步优化
+
+### DPO 配置 ###
+# stage: dpo
+# 需要偏好数据：chosen (好回答) vs rejected (差回答)
+
+# ==================== 特殊训练技巧 ====================
+
+# 1. 课程学习 (Curriculum Learning)
+# 先在简单数据上训练，再在困难数据上微调
+# 简单：概念理解题
+# 中等：应用题
+# 困难：推理题、反幻觉题
+
+# 2. 多任务学习
+# 混合多种任务类型：
+# - multiple_choice: 多选题
+# - open_qa: 开放问答
+# - calculation: 计算题
+# - explanation: 概念解释
+# - anti_hallucination: 反幻觉
+
+# 3. 对比学习
+# 对易混淆概念进行对比训练
+
+# ==================== 评估配置 ====================
+eval_dataset: astro_eval
+eval_steps: 500
+eval_strategy: steps
+load_best_model_at_end: true
+metric_for_best_model: accuracy
+greater_is_better: true
+
+# ==================== 硬件配置 ====================
+# 单卡 A100 40GB
+# per_device_train_batch_size: 4
+# gradient_accumulation_steps: 4
+# 有效 batch size = 4 * 4 = 16
+
+# 多卡训练 (4x A100)
+# per_device_train_batch_size: 2
+# gradient_accumulation_steps: 2
+
+# ==================== 运行命令示例 ====================
+
+## Stage 1: 持续预训练
+# llamafactory-cli train \
+#   --stage pt \
+#   --model_name_or_path Qwen/Qwen2.5-7B-Instruct \
+#   --do_train \
+#   --dataset arxiv_astro_cpt \
+#   --finetuning_type lora \
+#   --lora_target all \
+#   --lora_rank 64 \
+#   --lora_alpha 128 \
+#   --output_dir ./models/qwen8b-astro-cpt \
+#   --per_device_train_batch_size 4 \
+#   --gradient_accumulation_steps 4 \
+#   --lr_scheduler_type cosine \
+#   --logging_steps 10 \
+#   --save_steps 500 \
+#   --learning_rate 2e-5 \
+#   --num_train_epochs 3.0 \
+#   --plot_loss \
+#   --bf16
+
+## Stage 2: 监督微调
+# llamafactory-cli train \
+#   --stage sft \
+#   --model_name_or_path ./models/qwen8b-astro-cpt \
+#   --do_train \
+#   --dataset astro_qa_sft \
+#   --finetuning_type lora \
+#   --lora_target all \
+#   --lora_rank 128 \
+#   --lora_alpha 256 \
+#   --output_dir ./models/qwen8b-astro-sft \
+#   --per_device_train_batch_size 4 \
+#   --gradient_accumulation_steps 4 \
+#   --lr_scheduler_type cosine \
+#   --logging_steps 10 \
+#   --save_steps 500 \
+#   --learning_rate 5e-5 \
+#   --num_train_epochs 3.0 \
+#   --plot_loss \
+#   --bf16
+
+## 合并 LoRA 权重
+# llamafactory-cli export \
+#   --model_name_or_path Qwen/Qwen2.5-7B-Instruct \
+#   --adapter_name_or_path ./models/qwen8b-astro-sft \
+#   --finetuning_type lora \
+#   --template qwen \
+#   --export_dir ./models/qwen8b-astro-final \
+#   --export_size 2 \
+#   --export_device cpu \
+#   --export_legacy_format false
