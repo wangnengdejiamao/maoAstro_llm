@@ -38,6 +38,16 @@ maoAstro_llm/
 │   ├── clean_for_github.py                # Clean project for GitHub
 │   └── download_data.py                   # Download astronomical data
 │
+├── src/                               # 🌟 33 Astronomy Analysis Tools
+│   ├── unified_astro_query.py         # ZTF/TESS/LAMOST/SDSS/Gaia unified query
+│   ├── lightcurve_processor.py        # Light curve analysis
+│   ├── spectrum_analyzer.py           # Spectral analysis
+│   ├── hr_diagram_plotter.py          # HR diagram plotting
+│   ├── sed_plotter.py                 # SED plotting
+│   ├── astro_analyzer.py/v2           # Comprehensive celestial analysis
+│   ├── complete_astro_download.py     # Multi-catalog data download
+│   └── ... (25 more tools)
+│
 ├── train_qwen/                        # Training system
 │   ├── train_with_qwen25.py          # Qwen2.5-7B LoRA training
 │   ├── inference.py                  # Model inference
@@ -57,6 +67,24 @@ maoAstro_llm/
 │
 └── output/                            # Output directory
     └── qa_dataset.json               # Final QA dataset
+```
+
+## Models
+
+### Option 1: Train Your Own (Qwen2.5-7B)
+- Base: Qwen2.5-7B-Instruct
+- Training: LoRA (rank=64, alpha=16)
+- Data: 20,609 QA pairs from 242 papers
+
+### Option 2: AstroSage-LLaMA-3.1-8B (Recommended)
+From [astromlab.org](https://astromlab.org/ollama.html) - Pre-trained astronomy LLM
+
+```bash
+# Download from HuggingFace
+# https://huggingface.co/astromlab/AstroSage-LLaMA-3.1-8B
+
+# Or use with Ollama
+ollama pull astromlab/astrosage-llama3.1-8b
 ```
 
 ## Tools & Utilities
@@ -87,8 +115,26 @@ python train_alternative_model.py --model qwen
 # Start with RAG
 python start_maoastro_with_simple_rag.py
 
-# Use with Ollama + RAG
+# Use with Ollama + RAG (AstroSage model)
 python use_astrosage_with_rag.py
+```
+
+### Astronomy Data Analysis (src/)
+```bash
+# Unified query for ZTF, TESS, LAMOST, SDSS, Gaia
+python src/unified_astro_query.py
+
+# Light curve processing
+python src/lightcurve_processor.py
+
+# Spectrum analysis
+python src/spectrum_analyzer.py
+
+# HR diagram plotting
+python src/hr_diagram_plotter.py
+
+# Complete analysis pipeline
+python src/complete_analysis.py
 ```
 
 ### Evaluation & Analysis
@@ -104,14 +150,11 @@ python analyze_qa_results.py --input ./output/qa_hybrid
 
 # Generate project report
 python generate_report.py
-
-# Test API availability
-python test_api.py
 ```
 
 ### Utilities
 ```bash
-# Clean project for GitHub (remove large files)
+# Clean project for GitHub
 python clean_for_github.py
 
 # Export to Ollama format
@@ -133,13 +176,12 @@ export MOONSHOT_API_KEY="YOUR_API_KEY_HERE"
 - RAM: 32GB+
 - Storage: 50GB+ for models and data
 
-## Model Info
-
-- Base: Qwen2.5-7B-Instruct
-- Training: LoRA (rank=64, alpha=16)
-- Data: 20,609 QA pairs from 242 papers
-- Loss: 0.34 → 0.21 (3 epochs)
-
 ## License
 
 MIT License
+
+---
+
+**Related Projects:**
+- [AstroMLab](https://astromlab.org/) - Astronomy AI Research Lab
+- [AstroSage Model](https://astromlab.org/ollama.html) - Pre-trained astronomy LLM
