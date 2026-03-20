@@ -199,3 +199,6 @@ downloads/catalogs/
 downloads/images/
 downloads/lightcurves/
 downloads/spectra/
+.env
+.env.local
+*.key
