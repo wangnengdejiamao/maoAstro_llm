@@ -35,7 +35,7 @@
 ### 核心能力
 
 - 🔭 **多源数据整合**: 支持 ZTF、TESS、LAMOST、SDSS、Gaia 等主流天文数据库的统一查询与分析
-- 🤖 **领域专用LLM**: 基于 Qwen2.5-7B 微调的天文专用模型，或直接使用 AstroSage-LLaMA-3.1-8B
+- 🤖 **双模型LLM系统**: 基于 Qwen2.5-7B 和 AstroSage-LLaMA-3.1-8B 分别微调，提供互补的天文问答能力
 - 📚 **RAG知识增强**: 双轨检索系统（向量检索+关键词检索），支持PDF文献知识库
 - 📊 **多模态分析**: 光变曲线、光谱、能谱分布(SED)、赫罗图等多种分析维度
 - 🌐 **跨语言支持**: 支持中英文天文文献处理与问答
@@ -58,24 +58,43 @@
 
 ### 2. AI大模型系统
 
-#### 2.1 训练系统 (train_qwen/)
+本项目采用**双模型架构**，基于相同的天文QA数据集分别对Qwen2.5和AstroSage进行LoRA微调。
+
+#### 2.1 双模型训练系统
 
 ```
 train_qwen/
-├── train_with_qwen25.py      # Qwen2.5-7B LoRA 训练脚本
-├── inference.py              # 模型推理与文本生成
-├── merge_lora.py             # LoRA 权重合并
-├── convert_to_qwen_format.py # 数据格式转换
-└── data/qwen_train.json      # 20,609 QA训练数据
+├── train_with_qwen25.py              # Qwen2.5-7B 训练脚本
+├── train_alternative_model.py        # AstroSage-LLaMA 训练脚本
+├── inference.py                      # 模型推理
+├── merge_lora.py                     # LoRA权重合并
+├── convert_to_qwen_format.py         # 数据格式转换
+├── data/
+│   └── qwen_train.json               # 20,609 QA训练数据 (双模型共用)
+├── output_qwen25/                    # Qwen模型输出
+│   └── merged_model/                 # 合并后的完整模型
+└── astrosage_continued/              # AstroSage续训输出
+    └── checkpoint-*/                 # 训练检查点
 ```
 
-**训练参数**:
-- 基础模型: Qwen/Qwen2.5-7B-Instruct
+**双模型对比**:
+
+| 特性 | maoAstro-Qwen2.5-7B | maoAstro-AstroSage-LLaMA-3.1-8B |
+|------|---------------------|----------------------------------|
+| 基础模型 | Qwen2.5-7B-Instruct | AstroSage-LLaMA-3.1-8B |
+| 预训练知识 | 通用+中文 | 天文专业 |
+| 优势 | 中文理解强 | 天文知识丰富 |
+| 显存需求 | ~8GB | ~8GB |
+| 部署方式 | Transformers | Ollama/Transformers |
+| 适用场景 | 中文天文问答 | 专业天文分析 |
+
+**训练参数 (两模型相同)**:
 - 训练方法: LoRA (Low-Rank Adaptation)
-- LoRA rank: 64, alpha: 16
-- 训练数据: 20,609 条天文领域QA对
+- LoRA rank: 64, alpha: 16, dropout: 0.1
+- 训练数据: 20,609 条天文QA对
 - 训练轮次: 3 epochs
-- 损失变化: 0.34 → 0.21
+- 批次大小: 1 (梯度累积8步)
+- 学习率: 2e-4
 
 #### 2.2 RAG检索系统 (rag_system/)
 
@@ -109,43 +128,76 @@ rag_system/
 
 ## 模型
 
-### 推荐模型: AstroSage-LLaMA-3.1-8B
+本项目支持**双基础模型架构**，基于相同的天文QA数据集对两个预训练模型进行LoRA微调：
 
-来自 [AstroMLab](https://astromlab.org/ollama.html) 的天文领域专用模型。
+### 模型一: maoAstro-Qwen2.5-7B
+
+基于阿里巴巴 **Qwen2.5-7B-Instruct** 微调的中文天文专用模型。
+
+**训练配置**:
+- 基础模型: Qwen/Qwen2.5-7B-Instruct
+- 训练方法: LoRA (Low-Rank Adaptation)
+- LoRA rank: 64, alpha: 16, dropout: 0.1
+- 目标模块: q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj
+- 训练数据: 20,609 条天文QA对 (242篇PDF)
+- 训练轮次: 3 epochs
+- 批次大小: 1 (梯度累积8步)
+- 学习率: 2e-4
+- 损失变化: 0.34 → 0.21
 
 **模型特点**:
-- 架构: LLaMA 3.1 8B
--  specialization: 天体物理、天文学
-- 量化版本: BF16 (高精度) / Q8_0 (高效)
-- 部署: 支持 llama.cpp / Ollama
-- 硬件: CPU 友好，普通笔记本可运行
+- 中文天文问答优化
+- 对话模板支持 (Qwen ChatML格式)
+- 推理速度: ~50 tokens/s (RTX 3080 Ti)
+- 显存需求: ~8GB (4-bit量化)
 
-**下载与使用**:
+**文件位置**: `train_qwen/output_qwen25/merged_model/`
 
+### 模型二: maoAstro-AstroSage-LLaMA-3.1-8B
+
+基于 [AstroMLab](https://astromlab.org/ollama.html) **AstroSage-LLaMA-3.1-8B** 微调的增强版天文模型。
+
+**训练配置**:
+- 基础模型: astromlab/AstroSage-LLaMA-3.1-8B
+- 训练方法: LoRA (Low-Rank Adaptation)
+- LoRA rank: 64, alpha: 16
+- 训练数据: 与Qwen版本相同 (20,609 QA对)
+- 续训策略: 在AstroSage预训练权重基础上继续训练
+
+**模型特点**:
+- 继承AstroSage的天文专业知识
+- 进一步优化中文天文术语理解
+- 支持中英文混合问答
+- 可通过Ollama部署
+
+**使用方式**:
 ```bash
-# 方法1: 使用 Ollama
+# 方法1: Ollama部署
 ollama pull astromlab/astrosage-llama3.1-8b
 
-# 方法2: 从 HuggingFace 下载 GGUF
-# https://huggingface.co/astromlab/AstroSage-LLaMA-3.1-8B
-
-# 启动模型
-python src/intelligent_astro_analyzer.py --model astromlab/astrosage-llama3.1-8b
+# 加载微调后的LoRA权重
+python train_alternative_model.py --model astrosage --lora-path ./train_qwen/astrosage_continued/
 ```
 
-### 自训练模型: maoAstro-Qwen2.5-7B
+### 训练数据构成
 
-**训练数据构成**:
-- PDF文献: 242 篇天体物理论文
-- QA对总数: 20,609 条
-  - API生成: 3,793 条 (高质量)
-  - 规则生成: 16,816 条 (基础)
-- 主题覆盖: 灾变变星、白矮星、吸积盘、光变曲线、光谱分析等
+两个模型使用**相同的训练数据**：
 
-**模型性能**:
-- 训练损失: 0.34 → 0.21
-- 评估指标: 见 `evaluate_model.py` 输出
-- 推理速度: ~50 tokens/s (RTX 3080 Ti)
+| 数据类型 | 数量 | 说明 |
+|---------|------|------|
+| PDF文献 | 242篇 | 天体物理领域论文 |
+| QA对总数 | 20,609条 | 用于监督微调 |
+| ├─ API生成 | 3,793条 | Moonshot(Kimi)生成，高质量 |
+| └─ 规则生成 | 16,816条 | 模板+关键词生成，基础 |
+
+**主题覆盖**:
+- 灾变变星 (Cataclysmic Variables)
+- 白矮星与致密天体 (White Dwarfs)
+- 吸积盘物理 (Accretion Disks)
+- 光变曲线分析 (Light Curves)
+- 光谱分析 (Spectroscopy)
+- 恒星演化 (Stellar Evolution)
+- 双星系统 (Binary Systems)
 
 ---
 
@@ -182,6 +234,8 @@ python src/intelligent_astro_analyzer.py
 
 ### 使用自训练模型
 
+#### 方案A: Qwen2.5-7B 模型
+
 ```bash
 # 1. 准备训练数据
 python generate_astronomy_qa_hybrid.py \
@@ -189,15 +243,41 @@ python generate_astronomy_qa_hybrid.py \
     --output ./output/qa_hybrid \
     --use-api
 
-# 2. 训练模型
+# 2. 转换数据格式
+python train_qwen/convert_to_qwen_format.py \
+    --input ./output/qa_hybrid \
+    --output ./train_qwen/data/qwen_train.json
+
+# 3. 训练模型 (Qwen2.5-7B)
 cd train_qwen
 python train_with_qwen25.py
 
-# 3. 合并 LoRA 权重
+# 4. 合并 LoRA 权重
 python merge_lora.py
 
-# 4. 启动推理
+# 5. 启动推理
 python start_maoastro_with_simple_rag.py
+```
+
+#### 方案B: AstroSage-LLaMA-3.1-8B 模型 (推荐)
+
+```bash
+# 1. 准备相同训练数据
+python generate_astronomy_qa_hybrid.py \
+    --input ./data/papers \
+    --output ./output/qa_hybrid
+
+# 2. 下载基础模型
+# 从 HuggingFace 下载 astromlab/AstroSage-LLaMA-3.1-8B
+
+# 3. 继续训练 (在AstroSage基础上微调)
+python train_alternative_model.py \
+    --model astrosage \
+    --train-data ./train_qwen/data/qwen_train.json \
+    --output-dir ./train_qwen/astrosage_continued
+
+# 4. 启动推理
+python use_astrosage_with_rag.py
 ```
 
 ### 天文数据分析示例
