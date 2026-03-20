@@ -20,14 +20,22 @@ maoAstro_llm/
 ├── requirements.txt                   # Python dependencies
 ├── setup.py                          # Package setup
 │
-├── Core Scripts (10 files)
-│   ├── generate_astronomy_qa_hybrid.py    # Generate QA pairs from PDFs (rule + API)
-│   ├── train_alternative_model.py         # Train LLM (Qwen/Llama)
-│   ├── start_maoastro_with_simple_rag.py  # Start model with RAG inference
+├── Core Scripts (15 files)
+│   ├── generate_astronomy_qa_hybrid.py    # ⭐ Generate QA pairs from PDFs
+│   ├── train_alternative_model.py         # ⭐ Train LLM (Qwen/Llama)
+│   ├── start_maoastro_with_simple_rag.py  # ⭐ Start model with RAG inference
 │   ├── export_astrosage_simple.py         # Export to Ollama format
+│   │
 │   ├── evaluate_model.py                  # Model evaluation
-│   ├── analyze_qa_results.py              # Analyze QA dataset
 │   ├── test_manual_eval.py                # Manual testing
+│   ├── test_api.py                        # Test API availability
+│   ├── analyze_qa_results.py              # Analyze QA dataset
+│   │
+│   ├── use_astrosage_with_rag.py          # Use Ollama + RAG
+│   ├── check_rag_knowledge.py             # Check RAG knowledge base
+│   ├── astro_qa_dataset.py                # Rule-based QA generator
+│   ├── generate_report.py                 # Generate project report
+│   ├── clean_for_github.py                # Clean project for GitHub
 │   └── download_data.py                   # Download astronomical data
 │
 ├── train_qwen/                        # Training system
@@ -51,11 +59,67 @@ maoAstro_llm/
     └── qa_dataset.json               # Final QA dataset
 ```
 
-## Workflow
+## Tools & Utilities
 
-1. **Generate QA Data**: `python generate_astronomy_qa_hybrid.py --input ./papers --output ./output`
-2. **Train Model**: See `train_qwen/README.md`
-3. **Inference**: `python start_maoastro_with_simple_rag.py`
+### Data Generation
+```bash
+# Generate QA pairs from PDFs (rule-based + API)
+python generate_astronomy_qa_hybrid.py --input ./papers --output ./output
+
+# Rule-based QA generator (no API needed)
+python astro_qa_dataset.py
+
+# Check RAG knowledge base
+python check_rag_knowledge.py
+```
+
+### Model Training
+```bash
+# See train_qwen/README.md for training guide
+cd train_qwen && python train_with_qwen25.py
+
+# Alternative models
+python train_alternative_model.py --model qwen
+```
+
+### Inference & Usage
+```bash
+# Start with RAG
+python start_maoastro_with_simple_rag.py
+
+# Use with Ollama + RAG
+python use_astrosage_with_rag.py
+```
+
+### Evaluation & Analysis
+```bash
+# Model evaluation
+python evaluate_model.py --model_path ./train_qwen/output_qwen25/merged_model
+
+# Manual test with reference answers
+python test_manual_eval.py
+
+# Analyze QA results
+python analyze_qa_results.py --input ./output/qa_hybrid
+
+# Generate project report
+python generate_report.py
+
+# Test API availability
+python test_api.py
+```
+
+### Utilities
+```bash
+# Clean project for GitHub (remove large files)
+python clean_for_github.py
+
+# Export to Ollama format
+python export_astrosage_simple.py
+
+# Download astronomical data
+python download_data.py
+```
 
 ## API Configuration
 
