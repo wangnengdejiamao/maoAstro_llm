@@ -25,7 +25,7 @@ from datetime import datetime
 from pathlib import Path
 
 # Kimi API 配置
-KIMI_API_KEY = "sk-kimi-SoSpEtPpAUpQN94Mng37gYiJ5scgv3WyDR7AfKDhyv01Awca6yfUKod9lcbNa6Uj"
+KIMI_API_KEY = os.getenv("KIMI_API_KEY", "YOUR_API_KEY_HERE")
 KIMI_API_BASE = "https://api.moonshot.cn/v1"
 
 

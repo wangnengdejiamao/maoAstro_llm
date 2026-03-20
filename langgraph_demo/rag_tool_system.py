@@ -430,7 +430,7 @@ class AstronomyAssistant:
         self.tools = AstronomyTools(self.tool_config)
         
         # 初始化 LLM 路由
-        kimi_key = "19cb2d77-5ef2-8672-8000-0000a0d97edd" if use_kimi else None
+        kimi_key = os.getenv("KIMI_API_KEY") if use_kimi else None
         self.llm_router = LLMRouter(ollama_model="qwen3:8b", kimi_api_key=kimi_key)
         
         print("\n✓ 助手初始化完成")

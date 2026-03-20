@@ -30,7 +30,7 @@ class Config:
     """配置"""
     ollama_model: str = "qwen3:8b"
     ollama_host: str = "http://localhost:11434"
-    kimi_api_key: str = "19cb2d77-5ef2-8672-8000-0000a0d97edd"
+    kimi_api_key: str = os.getenv("KIMI_API_KEY", "YOUR_API_KEY_HERE")
     
     # 向量数据库
     vector_db_path: str = "langgraph_demo/output/astro_knowledge"

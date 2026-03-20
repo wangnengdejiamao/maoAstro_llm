@@ -4,7 +4,7 @@ Kimi API 训练数据生成器
 =======================
 使用 Kimi API 生成高质量天文领域训练数据，用于后续模型微调或 RAG
 
-API Key: 19cb2d77-5ef2-8672-8000-0000a0d97edd
+API Key: Set via KIMI_API_KEY environment variable
 
 功能：
 1. 生成天文领域专业问答对
@@ -23,7 +23,7 @@ from tqdm import tqdm
 @dataclass
 class KimiConfig:
     """Kimi API 配置"""
-    api_key: str = "19cb2d77-5ef2-8672-8000-0000a0d97edd"
+    api_key: str = os.getenv("KIMI_API_KEY", "YOUR_API_KEY_HERE")
     base_url: str = "https://api.moonshot.cn/v1"
     model: str = "moonshot-v1-128k"  # 或 moonshot-v1-8k, moonshot-v1-32k
     temperature: float = 0.3  # 低温度确保输出稳定
@@ -306,7 +306,7 @@ def main():
     
     # 初始化生成器
     config = KimiConfig(
-        api_key="19cb2d77-5ef2-8672-8000-0000a0d97edd",
+        api_key=os.getenv("KIMI_API_KEY", "YOUR_API_KEY_HERE"),
         model="moonshot-v1-32k"  # 使用 32k 上下文模型
     )
     

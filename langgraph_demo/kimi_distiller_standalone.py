@@ -4,7 +4,7 @@ Kimi API 天文知识蒸馏系统 - 独立可运行版本
 ===========================================
 使用 Kimi API 作为教师模型，蒸馏白矮星、CVs、Polars 等天文知识
 
-API Key: sk-kimi-SoSpEtPpAUpQN94Mng37gYiJ5scgv3WyDR7AfKDhyv01Awca6yfUKod9lcbNa6Uj
+API Key: Set via KIMI_API_KEY environment variable
 
 天体类型覆盖:
 1. DA_WD - 氢大气白矮星
@@ -27,7 +27,7 @@ from datetime import datetime
 from pathlib import Path
 
 # ============ 配置 ============
-KIMI_API_KEY = "sk-kimi-SoSpEtPpAUpQN94Mng37gYiJ5scgv3WyDR7AfKDhyv01Awca6yfUKod9lcbNa6Uj"
+KIMI_API_KEY = os.getenv("KIMI_API_KEY", "YOUR_API_KEY_HERE")
 KIMI_API_BASE = "https://api.moonshot.cn/v1"
 
 # ============ 数据类 ============
