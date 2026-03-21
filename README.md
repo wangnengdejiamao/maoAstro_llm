@@ -161,7 +161,7 @@ rag_system/
 - 基础模型: astromlab/AstroSage-LLaMA-3.1-8B
 - 训练方法: LoRA (Low-Rank Adaptation)
 - LoRA rank: 64, alpha: 16
-- 训练数据: 与Qwen版本相同 (20,609 QA对)
+- 训练数据: 与Qwen版本相同 (100,609 QA对)
 - 续训策略: 在AstroSage预训练权重基础上继续训练
 
 **模型特点**:
@@ -185,10 +185,10 @@ python train_alternative_model.py --model astrosage --lora-path ./train_qwen/ast
 
 | 数据类型 | 数量 | 说明 |
 |---------|------|------|
-| PDF文献 | 242篇 | 天体物理领域论文 |
-| QA对总数 | 20,609条 | 用于监督微调 |
-| ├─ API生成 | 3,793条 | Moonshot(Kimi)生成，高质量 |
-| └─ 规则生成 | 16,816条 | 模板+关键词生成，基础 |
+| PDF文献 | 1000篇 | 天体物理领域论文 |
+| QA对总数 | 100,609条 | 用于监督微调 |
+| ├─ API生成 | 80000条 | Moonshot(Kimi)生成，高质量 |
+| └─ 规则生成 | 20,609条 | 模板+关键词生成，基础 |
 
 **主题覆盖**:
 - 灾变变星 (Cataclysmic Variables)
